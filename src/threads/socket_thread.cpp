@@ -1,7 +1,6 @@
 #include "socket_thread.h"
 #include <unistd.h>
 
-
 #define port 65432
 #define ip_addr "127.0.0.1"
 #define MAX_CHUNK_SIZE 5000
@@ -18,7 +17,7 @@ std::string decode_utf8(const char *data, size_t length) {
 }
 
 
-void App::recv_data() {
+void MainWindow::recv_data() {
 	// frame_queue 要以 ref 傳入
 
     int sockfd, newfd;
@@ -36,7 +35,7 @@ void App::recv_data() {
 
     if (bind(sockfd, (const struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0) {
         perror("Bind socket failed!");
-        close(sockfd);
+        ::close(sockfd); // 確保調用 POSIX 的 close (否則會與 MainWindow 的 close() 衝突)
         exit(0);
     }
     std::cout << "server start at: " << inet_ntoa(serverAddr.sin_addr) << ":" << port << std::endl;
@@ -56,7 +55,7 @@ void App::recv_data() {
         while (1) {
             int nbyte = recv(newfd, indata, sizeof(indata), 0); // 接收資料
             if (nbyte <= 0) {
-                close(newfd);
+                ::close(newfd);
                 std::cout << "connection closed" << std::endl;
                 break;
             }

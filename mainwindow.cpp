@@ -19,8 +19,25 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::updateUI() {
-    ui->openGLWidget->update();
+    // ui->openGLWidget->update();
+    if (!queue_json.empty()) {
+        ui->openGLWidget->cur_frame_data = queue_json.front();
+        queue_json.pop();
+    }
 }
+
+void MainWindow::setupUI() {
+    std::thread socket_thread(&MainWindow::recv_data, this);
+    socket_thread.detach(); // 讓線程獨立運行，不會受到 setupUI 的生命週期影響
+    setupTimer();
+}
+
+void MainWindow::setupTimer() {
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::updateUI);
+    timer->start(16); // 30fps
+}
+
 
 MainWindow::~MainWindow()
 {

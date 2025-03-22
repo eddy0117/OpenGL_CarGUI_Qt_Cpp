@@ -19,6 +19,7 @@ class MyOpenGLWidget : public QOpenGLWidget, QOpenGLExtraFunctions
     Q_OBJECT
 public:
     explicit MyOpenGLWidget(QWidget* parent = nullptr);
+    QJsonObject cur_frame_data; // 從 MainWindow 傳入的當前 frame 的資料
 
 private:
     // OpenGL widget essential methods
@@ -64,7 +65,7 @@ private:
     std::vector<std::unordered_map<std::string, std::string>> cur_frame_dots;
     std::vector<std::pair<float, std::pair<float, float>>> dangerous_objs;
 
-    QJsonObject cur_frame_data;
+
 
     //Systems
     CameraSystem* cameraSystem;

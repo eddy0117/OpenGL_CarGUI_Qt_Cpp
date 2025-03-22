@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
     // app.set_up_opengl();
     // app.make_systems();
+
     app.show();
+    app.setupUI();
     return a.exec();
 }

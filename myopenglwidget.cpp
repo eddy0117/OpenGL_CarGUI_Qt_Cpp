@@ -98,7 +98,7 @@ void MyOpenGLWidget::init_my_setup()
     color_dict = factory->make_color_list(colors_path_list);
 
     // Normal mode perspective
-    // factory->make_camera(cam_params_list);
+    factory->make_camera(cam_params_list);
 
     CameraComponent* camera = new CameraComponent();
     cameraComponent = camera;
@@ -140,6 +140,13 @@ void MyOpenGLWidget::paintGL()
     update_camera();
 
     draw_ego_car();
+
+    if (!cur_frame_data.isEmpty()) {
+        draw_objs();
+        draw_lines();
+        draw_occ_dots();
+    }
+
     update();
 }
 

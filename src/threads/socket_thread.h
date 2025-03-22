@@ -1,5 +1,6 @@
 #include "../config.h"
-#include "../src/controller/app.h"
+// #include "../src/controller/app.h"
+#include "mainwindow.h"
 
 #include <condition_variable>
 #include <atomic>

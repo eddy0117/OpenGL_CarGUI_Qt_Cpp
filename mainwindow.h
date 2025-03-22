@@ -13,7 +13,7 @@
 
 #include "src/view/shader.h"
 
-#include "src/threads/socket_thread.h"
+// #include "src/threads/socket_thread.h"
 
 #include <QMainWindow>
 #include <qopenglfunctions.h>
@@ -48,20 +48,24 @@ public:
     void make_systems();
 
     //Components
-    std::unordered_map<CamType, TransformComponent> transformComponents;
-    CameraComponent* cameraComponent;
-    unsigned int cameraID;
-    std::unordered_map<std::string, RenderComponent> model_dict;
-    std::unordered_map<std::string, unsigned int> color_dict;
+    // std::unordered_map<CamType, TransformComponent> transformComponents;
+    // CameraComponent* cameraComponent;
+    // unsigned int cameraID;
+    // std::unordered_map<std::string, RenderComponent> model_dict;
+    // std::unordered_map<std::string, unsigned int> color_dict;
 
     // 需要在 myopenglwidget.cpp 被調用
-    glm::mat4 projection;
-    glm::mat4 view;
+    // glm::mat4 projection;
+    // glm::mat4 view;
 
-    std::unordered_map<std::string, Shader*> shader_dict;
-    std::unordered_map<std::string, glm::mat4> view_dict;
+    // std::unordered_map<std::string, Shader*> shader_dict;
+    // std::unordered_map<std::string, glm::mat4> view_dict;
 
-    TransformComponent ego_car_pos;
+    // TransformComponent ego_car_pos;
+
+    void setupUI();
+
+
 private:
     Ui::MainWindow *ui;
 
@@ -121,6 +125,6 @@ private:
 
     // Qt methods
     void updateUI();
-
+    void setupTimer();
 };
 #endif // MAINWINDOW_H
