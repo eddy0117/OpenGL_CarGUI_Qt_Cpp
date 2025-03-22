@@ -24,6 +24,57 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLCDNumber" name="speedometer">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>360</y>
+      <width>231</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLCDNumber {
+ color: #1fed45; 
+background-color: rgba(0, 0, 0, 0); 
+border-radius: 16px;
+};
+
+</string>
+    </property>
+    <property name="value" stdset="0">
+     <double>888.799999999999955</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>400</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>LKLUG</family>
+      <pointsize>50</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"> color: #1fed45;
+background-color: rgba(0, 0, 0, 0);
+border-radius: 16px;</string>
+    </property>
+    <property name="text">
+     <string>km/h</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

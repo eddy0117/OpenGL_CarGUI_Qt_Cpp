@@ -23,13 +23,18 @@ void MainWindow::updateUI() {
     if (!queue_json.empty()) {
         ui->openGLWidget->cur_frame_data = queue_json.front();
         queue_json.pop();
+
+        ui->speedometer->display(ui->openGLWidget->cur_frame_data["speed"].toString().toDouble());
     }
+
+
 }
 
 void MainWindow::setupUI() {
     std::thread socket_thread(&MainWindow::recv_data, this);
     socket_thread.detach(); // 讓線程獨立運行，不會受到 setupUI 的生命週期影響
     setupTimer();
+    ui->speedometer->display(0);
 }
 
 void MainWindow::setupTimer() {
