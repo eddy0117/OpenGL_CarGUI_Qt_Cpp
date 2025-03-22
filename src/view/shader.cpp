@@ -8,7 +8,8 @@
 
 Shader::Shader(const std::string& filepath, const std::string& fragment_filepath) {
 	// 建立一個可執行的對象容器, 並分別把 vertex shader & fragment shader 放進去
-	shader = glCreateProgram();
+    initializeOpenGLFunctions();
+    shader = glCreateProgram();
 	shader = make_shader(filepath, fragment_filepath);
 }
 

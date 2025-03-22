@@ -53,7 +53,7 @@ set(PROJECT_SOURCES
         src/threads/socket_thread.cpp
         src/view/shader.cpp
         # src/controller/app.cpp
-        # src/controller/drawing.cpp
+        drawing.cpp
 
         # shader
         src/shaders/vertex_base.vert

@@ -19,7 +19,7 @@ public:
     void set_proj_view_mat(const glm::mat4& proj_mat, const glm::mat4& view_mat);
 
     void draw_model(
-        RenderComponent& renderable, 
+        RenderComponent& renderable,
         TransformComponent& transform);
 private:
 

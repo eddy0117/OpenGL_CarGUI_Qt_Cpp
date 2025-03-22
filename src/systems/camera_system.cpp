@@ -1,7 +1,7 @@
 #include "camera_system.h"
 
-CameraSystem::CameraSystem(QWindow* window) {
-    this->window = window;
+CameraSystem::CameraSystem() {
+
 
     initializeOpenGLFunctions();
 }

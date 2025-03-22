@@ -25,3 +25,12 @@ float cal_distance(std::pair<float, float> p1, std::pair<float, float> p2) {
     float distance = sqrt(pow(p1.first - p2.first, 2) + pow(p1.second - p2.second, 2));
     return distance;
 }
+
+void print_cur_dir() {
+    char cwd[PATH_MAX];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("Current working dir: %s\n", cwd);
+    } else {
+        perror("getcwd() error");
+    }
+}

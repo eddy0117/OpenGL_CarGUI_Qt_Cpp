@@ -15,11 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
     // format.setProfile(QSurfaceFormat::CoreProfile);
     // QSurfaceFormat::setDefaultFormat(format);
     std::cout<<"MainWindow init"<<std::endl;
+
 }
-void MainWindow::make_systems() {
-    ui->openGLWidget->init_my_setup(this);
-    cameraSystem = new CameraSystem(window);
-    renderSystem = new RenderSystem(shader, window);
+
+void MainWindow::updateUI() {
+    ui->openGLWidget->update();
 }
 
 MainWindow::~MainWindow()

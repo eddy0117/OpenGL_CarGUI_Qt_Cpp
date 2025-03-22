@@ -1,6 +1,6 @@
-#include "app.h"
+#include "myopenglwidget.h"
 
-void App::draw_objs() {
+void MyOpenGLWidget::draw_objs() {
 	// 繪製道路物件
 
 	int obj_scale = OBJ_SCALE;
@@ -31,7 +31,7 @@ void App::draw_objs() {
     }
 }
 
-void App::draw_lines() {
+void MyOpenGLWidget::draw_lines() {
     // 繪製道路地圖線
     int line_scale = LINE_SCALE;
 
@@ -77,7 +77,7 @@ void App::draw_lines() {
 }
 
 
-void App::draw_occ_dots() {
+void MyOpenGLWidget::draw_occ_dots() {
     // 繪製 3D occupancy dots
     int scale = 35;
     float dot_density = 1.88f;
@@ -128,7 +128,7 @@ void App::draw_occ_dots() {
 }
 
 
-std::vector<TransformComponent> App::line_interpolation(
+std::vector<TransformComponent> MyOpenGLWidget::line_interpolation(
 	std::vector<TransformComponent>& positions, 
 	int num_points) {
 	std::vector<TransformComponent> result;
@@ -164,11 +164,11 @@ std::vector<TransformComponent> App::line_interpolation(
 	return result;
 }
 
-void App::draw_ego_car_BEV() {
+void MyOpenGLWidget::draw_ego_car_BEV() {
 
 	// 切換 shader 需要重新傳 Uniform 變數
-	switch_to_shader(shader_dict["ego"]);
-	shader_dict["ego"]->set_proj_view_mat(projection, view);
+    switch_to_shader(shader_dict["ego"]);
+    shader_dict["ego"]->set_proj_view_mat(projection, view);
 
 	unsigned int num_objs = dangerous_objs.size();
 
@@ -207,7 +207,7 @@ void App::draw_ego_car_BEV() {
 	
 }
 
-void App::draw_ego_car() {
+void MyOpenGLWidget::draw_ego_car() {
 	TransformComponent transform;
 	transform.position = {5.0f, 0.0f, 0.0f};
 	transform.eulers = {0.0f, 0.0f, 0.0f};

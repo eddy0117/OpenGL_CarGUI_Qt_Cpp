@@ -5,6 +5,7 @@ Factory::Factory(
     std::unordered_map<CamType, TransformComponent>& transformComponents):
     transformComponents(transformComponents) {
     initializeOpenGLFunctions();
+
 }
 
 Factory::~Factory() {

@@ -6,7 +6,7 @@
 class RenderSystem : public QOpenGLExtraFunctions {
 public:
 
-    RenderSystem(unsigned int shader, QWindow* window);
+    RenderSystem(unsigned int shader);
     
 
     
@@ -27,11 +27,9 @@ public:
         unsigned int color,
         std::vector<TransformComponent>& positions);
 
-    void draw_line(
-        RenderComponent& renderable);
     
 private:
 
     unsigned int modelLocation;
-    QWindow* window;
+
 };

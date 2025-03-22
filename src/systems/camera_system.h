@@ -7,7 +7,7 @@
 class CameraSystem : public QOpenGLExtraFunctions{
 public:
 
-    CameraSystem(QWindow* window);
+    CameraSystem();
     
     glm::mat4 get_updated_view(
         std::unordered_map<CamType,TransformComponent> &transformComponents,
@@ -16,6 +16,5 @@ public:
 private:
     unsigned int viewLocation;
     glm::vec3 global_up = {0.0f, 0.0f, 1.0f};
-    QWindow* window;
     Shader* shader;
 };
