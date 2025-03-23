@@ -47,30 +47,11 @@ public:
     void set_up_opengl();
     void make_systems();
 
-    //Components
-    // std::unordered_map<CamType, TransformComponent> transformComponents;
-    // CameraComponent* cameraComponent;
-    // unsigned int cameraID;
-    // std::unordered_map<std::string, RenderComponent> model_dict;
-    // std::unordered_map<std::string, unsigned int> color_dict;
-
-    // 需要在 myopenglwidget.cpp 被調用
-    // glm::mat4 projection;
-    // glm::mat4 view;
-
-    // std::unordered_map<std::string, Shader*> shader_dict;
-    // std::unordered_map<std::string, glm::mat4> view_dict;
-
-    // TransformComponent ego_car_pos;
-
     void setupUI();
 
 
 private:
     Ui::MainWindow *ui;
-
-
-
 
     QWindow* window;
 
@@ -78,10 +59,8 @@ private:
     std::string mode = "normal";
     bool KeyPressed = false;
 
-    // GLfloat tempArray[MAX_LIGHTS];
-
     QJsonObject cur_frame_data;
-    std::vector<std::vector<uchar>> cam_img_arr;
+    // std::vector<std::vector<uchar>> cam_img_arr;
 
     //Systems
     CameraSystem* cameraSystem;
@@ -106,6 +85,10 @@ private:
     void updateUI();
     void setupTimer();
 
+    // GUI methods
+    void update_image();
+
+    // Helper methods
     void process_recv_data(QJsonObject cur_frame_data);
     QPixmap convert_cv_qt(cv::Mat img);
 };

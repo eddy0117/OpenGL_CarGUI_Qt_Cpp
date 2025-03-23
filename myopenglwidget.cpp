@@ -20,11 +20,6 @@ void debug_func(){
 
 void MyOpenGLWidget::initializeGL()
 {
-    // QSurfaceFormat format;
-    // format.setRenderableType(QSurfaceFormat::OpenGLES); // 指定 OpenGL ES
-    // format.setVersion(3, 0);  // 使用 OpenGL ES 3.0
-    // format.setProfile(QSurfaceFormat::CoreProfile);
-    // QSurfaceFormat::setDefaultFormat(format);
 
     initializeOpenGLFunctions();
     // std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
