@@ -13,11 +13,12 @@ set(CMAKE_CXX_COMPILER /usr/bin/g++)
 set(CMAKE_CXX_STANDARD 17)
 # set(CMAKE_CXX_STANDARD 20)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread") # multithreading support
-
-
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# set(CUDA_TOOLKIT_ROOT_DIR "/usr/local/cuda-12.0")
+
 find_package(OpenGL REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(Qt6 COMPONENTS Widgets OpenGL OpenGLWidgets REQUIRED)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -67,9 +68,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SmartDashboardSystem
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+
         # myopenglwidget.h myopenglwidget.cpp
         # src/glad.cpp
     )
+
+
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET SmartDashboardSystem APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
@@ -94,7 +98,7 @@ target_include_directories(SmartDashboardSystem
 )
 
 target_link_libraries(SmartDashboardSystem PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-    glfw
+    ${OpenCV_LIBS}
     OpenGL::GL ${CMAKE_DL_LIBS}
     Qt6::Core
     Qt6::Gui

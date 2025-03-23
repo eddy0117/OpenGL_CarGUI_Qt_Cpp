@@ -26,6 +26,9 @@
 #include <algorithm>
 #include <chrono>
 
+// OpenCV
+#include <opencv2/opencv.hpp>
+
 // Qt Json
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -45,12 +48,15 @@
 // Debug
 #include <unistd.h>
 #include <limits.h>
+
+
 enum class CamType {
     NORMAL,
     BEV
 };
 
 std::vector<std::string> split(std::string line, std::string delimiter);
+std::vector<uchar> base64Decode(const std::string& base64Str);
 
 float cal_distance(std::pair<float, float> p1, std::pair<float, float> p2);
 void print_cur_dir();

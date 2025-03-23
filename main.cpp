@@ -7,8 +7,10 @@
 
 int main(int argc, char *argv[])
 {
-    // print_cur_dir();
     QApplication a(argc, argv);
+
+    // print_cur_dir();
+    std::cout << QCoreApplication::applicationDirPath().toStdString() << std::endl;
     QSurfaceFormat format;
     format.setRenderableType(QSurfaceFormat::OpenGLES); // 指定 OpenGL ES
     format.setVersion(3, 0);  // 使用 OpenGL ES 3.0

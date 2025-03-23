@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/shaders/fragment_base.frag</file>
+        <file>src/shaders/fragment_ego.frag</file>
+        <file>src/shaders/fragment_ego_uni.frag</file>
+        <file>src/shaders/vertex_base.vert</file>
+        <file>src/shaders/vertex_ego.vert</file>
+    </qresource>
+</RCC>

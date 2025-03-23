@@ -70,23 +70,6 @@ private:
     Ui::MainWindow *ui;
 
 
-    // MyOpenGLWidget* openGLWidget;
-
-    // void clear_last_frame_data();
-    // void show_ego_car();
-    // void draw_objs();
-    // void draw_lines();
-    // void draw_ego_car();
-    // void draw_ego_car_BEV();
-    // void draw_occ_dots();
-    std::vector<TransformComponent> line_interpolation(
-        std::vector<TransformComponent>& positions,
-        int num_points);
-
-    void recv_data(); // 改為成員函式
-    void set_camera();
-    void update_camera();
-
 
 
     QWindow* window;
@@ -95,20 +78,14 @@ private:
     std::string mode = "normal";
     bool KeyPressed = false;
 
-    GLfloat tempArray[MAX_LIGHTS];
-
-    // 將投影矩陣和視圖矩陣宣告為成員變數，方便使用
-
-    std::vector<std::unordered_map<std::string, std::string>> cur_frame_objs;
-    std::vector<std::unordered_map<std::string, std::string>> cur_frame_dots;
-    std::vector<std::pair<float, std::pair<float, float>>> dangerous_objs;
+    // GLfloat tempArray[MAX_LIGHTS];
 
     QJsonObject cur_frame_data;
+    std::vector<std::vector<uchar>> cam_img_arr;
 
     //Systems
     CameraSystem* cameraSystem;
     RenderSystem* renderSystem;
-
 
     //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     std::queue<QJsonObject> queue_json;  // 生產者佇列
@@ -122,9 +99,14 @@ private:
     // 記錄 Producer 通知時間與 Consumer 處理時間
     std::unordered_map<int, std::chrono::high_resolution_clock::time_point> g_notify_times;
 
+    // Threads
+    void recv_data();
 
     // Qt methods
     void updateUI();
     void setupTimer();
+
+    void process_recv_data(QJsonObject cur_frame_data);
+    QPixmap convert_cv_qt(cv::Mat img);
 };
 #endif // MAINWINDOW_H

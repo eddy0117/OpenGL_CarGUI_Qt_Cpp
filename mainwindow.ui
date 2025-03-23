@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>30</y>
-      <width>641</width>
-      <height>471</height>
+      <y>20</y>
+      <width>671</width>
+      <height>501</height>
      </rect>
     </property>
    </widget>
@@ -73,6 +73,44 @@ border-radius: 16px;</string>
     </property>
     <property name="text">
      <string>km/h</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img_front">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>40</y>
+      <width>211</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>470</width>
+      <height>264</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img_back">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>40</y>
+      <width>211</width>
+      <height>119</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
   </widget>
