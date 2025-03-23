@@ -90,7 +90,7 @@ void MyOpenGLWidget::paintGL()
 
     update_camera();
 
-    draw_ego_car();
+    show_ego_car();
 
     if (!cur_frame_data.isEmpty()) {
         draw_objs();
@@ -124,3 +124,15 @@ void MyOpenGLWidget::update_camera() {
     view = view_dict[mode];
     shader_dict["base"]->set_proj_view_mat(projection, view);
 }
+
+void MyOpenGLWidget::mousePressEvent(QMouseEvent *event)  {
+    if (event->button() == Qt::LeftButton || event->button() == Qt::RightButton) {
+        if (mode == "normal") {
+            mode = "BEV";
+        } else {
+            mode = "normal";
+        }
+    }
+}
+
+

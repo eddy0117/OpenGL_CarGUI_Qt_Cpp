@@ -2,7 +2,7 @@
 #define MYOPENGLWIDGET_H
 #include "src/config.h"
 
-// #include "src/controller/app.h"
+#include <QMouseEvent>
 
 #include "src/components/camera_component.h"
 #include "src/components/render_component.h"
@@ -23,9 +23,9 @@ public:
 
 private:
     // OpenGL widget essential methods
-    virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
+    virtual void initializeGL() override;
+    virtual void resizeGL(int w, int h) override;
+    virtual void paintGL() override;
 
     // Build-up functions
     void init_my_setup();
@@ -35,11 +35,11 @@ private:
     void switch_to_shader(Shader* target_shader);
     void set_up_glfw();
     void clear_last_frame_data();
-    void show_ego_car();
     void draw_objs();
     void draw_lines();
     void draw_ego_car();
     void draw_ego_car_BEV();
+    void show_ego_car();
     void draw_occ_dots();
     std::vector<TransformComponent> line_interpolation(
         std::vector<TransformComponent>& positions,
@@ -51,8 +51,7 @@ private:
 
 
     // Member variables
-    // 將 MainWindow 實例傳入
-    MainWindow* app;
+
     unsigned int shader;
     std::string mode = "normal";
     bool KeyPressed = false;
@@ -127,6 +126,13 @@ private:
         {{-5.0f, 0.0f, 5.0f}, {0.0f, -15.0f, 0.0f}, CamType::NORMAL},
         {{5.0f, 0.0f, 7.0f}, {0.0f, -89.0f, 0.0f}, CamType::BEV}
     };
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+
+    // void mouseMoveEvent(QMouseEvent *event) override;
+
+    // void mouseReleaseEvent(QMouseEvent *event) override;
 
 };
 

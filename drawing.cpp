@@ -214,3 +214,12 @@ void MyOpenGLWidget::draw_ego_car() {
 	// renderSystem->draw_model(model_dict["ego_car"], transform);
 	renderSystem->draw_model_ins_mat(model_dict["ego_car"], transform);
 }
+
+void MyOpenGLWidget::show_ego_car() {
+    if (mode == "normal") {
+        draw_ego_car();
+    }
+    else {
+        draw_ego_car_BEV();
+    }
+}
