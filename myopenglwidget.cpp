@@ -4,6 +4,15 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget* parent):QOpenGLWidget(parent) {
 
 }
 
+MyOpenGLWidget::~MyOpenGLWidget() {
+    delete cameraSystem;
+    delete renderSystem;
+    delete cameraComponent;
+    std::cout << "max consume time: " << *std::max_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
+    std::cout << "min consume time: " << *std::min_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
+    std::cout << "Average consume time: " << std::accumulate(consume_time_list.begin(), consume_time_list.end(), 0.0f) / consume_time_list.size() << "ms" << std::endl;
+}
+
 void debug_func(){
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
@@ -92,10 +101,16 @@ void MyOpenGLWidget::paintGL()
 
     show_ego_car();
 
+
+
     if (!cur_frame_data.isEmpty()) {
+        auto start = std::chrono::high_resolution_clock::now();
         draw_objs();
         draw_lines();
         draw_occ_dots();
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float, std::milli> duration = end - start;
+        consume_time_list.push_back(duration.count());
     }
 
     update();
@@ -135,4 +150,13 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent *event)  {
     }
 }
 
+void MyOpenGLWidget::waitForEvent() {
+    QEventLoop loop;
+
+    // 當有事件時結束等待
+    connect(this, &MyOpenGLWidget::eventOccurred, &loop, &QEventLoop::quit);
+
+    // 進入事件循環，等待事件發生
+    loop.exec();
+}
 

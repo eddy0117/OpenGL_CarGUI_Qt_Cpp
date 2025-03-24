@@ -44,6 +44,7 @@
 
 // Qt Utils
 #include <QTimer>
+#include <QEventLoop>
 
 // Debug
 #include <unistd.h>

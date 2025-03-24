@@ -19,7 +19,9 @@ class MyOpenGLWidget : public QOpenGLWidget, QOpenGLExtraFunctions
     Q_OBJECT
 public:
     explicit MyOpenGLWidget(QWidget* parent = nullptr);
+    ~MyOpenGLWidget();
     QJsonObject cur_frame_data; // 從 MainWindow 傳入的當前 frame 的資料
+    std::vector<float> consume_time_list;
 
 private:
     // OpenGL widget essential methods
@@ -49,6 +51,8 @@ private:
     void set_camera();
     void update_camera();
 
+    // Other functions
+    void waitForEvent();
 
     // Member variables
 
@@ -133,6 +137,9 @@ protected:
     // void mouseMoveEvent(QMouseEvent *event) override;
 
     // void mouseReleaseEvent(QMouseEvent *event) override;
+
+signals:
+    void eventOccurred();
 
 };
 
