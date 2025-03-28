@@ -1,9 +1,9 @@
 #include "myopenglwidget.h"
 
 void MyOpenGLWidget::draw_objs() {
-	// 繪製道路物件
+    // 繪製道路物件
 
-	int obj_scale = OBJ_SCALE;
+    int obj_scale = OBJ_SCALE;
     QJsonArray objArray = cur_frame_data["obj"].toArray();
     for (const auto &val : objArray) {
         if (!val.isObject()) continue;
@@ -129,90 +129,90 @@ void MyOpenGLWidget::draw_occ_dots() {
 
 
 std::vector<TransformComponent> MyOpenGLWidget::line_interpolation(
-	std::vector<TransformComponent>& positions, 
-	int num_points) {
-	std::vector<TransformComponent> result;
+    std::vector<TransformComponent>& positions,
+    int num_points) {
+    std::vector<TransformComponent> result;
 
-	// 確保至少有兩個點進行插值
-	if (positions.size() < 2 || num_points <= 0) {
-		return result;
-	}
+    // 確保至少有兩個點進行插值
+    if (positions.size() < 2 || num_points <= 0) {
+        return result;
+    }
 
-	// 遍歷所有相鄰點對進行插值
-	for (size_t i = 0; i < positions.size() - 1; ++i) {
-		const auto& start = positions[i];
-		const auto& end = positions[i + 1];
+    // 遍歷所有相鄰點對進行插值
+    for (size_t i = 0; i < positions.size() - 1; ++i) {
+        const auto& start = positions[i];
+        const auto& end = positions[i + 1];
 
-		// 在 [0, 1) 區間生成 `num_points` 個比例值
-		for (int j = 0; j < num_points; ++j) {
-			float t = static_cast<float>(j) / static_cast<float>(num_points);
+        // 在 [0, 1) 區間生成 `num_points` 個比例值
+        for (int j = 0; j < num_points; ++j) {
+            float t = static_cast<float>(j) / static_cast<float>(num_points);
 
-			// 插值計算位置
-			TransformComponent interpolated;
-			interpolated.position = {
-				start.position[0] + t * (end.position[0] - start.position[0]),
-				start.position[1] + t * (end.position[1] - start.position[1]),
-				start.position[2] + t * (end.position[2] - start.position[2])
-			};
+            // 插值計算位置
+            TransformComponent interpolated;
+            interpolated.position = {
+                start.position[0] + t * (end.position[0] - start.position[0]),
+                start.position[1] + t * (end.position[1] - start.position[1]),
+                start.position[2] + t * (end.position[2] - start.position[2])
+            };
 
-			interpolated.eulers = start.eulers; 
+            interpolated.eulers = start.eulers;
 
-			result.push_back(interpolated);
-		}
-	}
+            result.push_back(interpolated);
+        }
+    }
 
-	return result;
+    return result;
 }
 
 void MyOpenGLWidget::draw_ego_car_BEV() {
 
-	// 切換 shader 需要重新傳 Uniform 變數
+    // 切換 shader 需要重新傳 Uniform 變數
     switch_to_shader(shader_dict["ego"]);
     shader_dict["ego"]->set_proj_view_mat(projection, view);
 
-	unsigned int num_objs = dangerous_objs.size();
+    unsigned int num_objs = dangerous_objs.size();
 
-	// 將 distance 做升冪排序
-	sort(dangerous_objs.begin(), dangerous_objs.end(), 
-	[](const std::pair<float, std::pair<float, float>>& a, 
-	   const std::pair<float, std::pair<float, float>>& b) {
-			return a.first < b.first;
-	   });
+    // 將 distance 做升冪排序
+    sort(dangerous_objs.begin(), dangerous_objs.end(),
+    [](const std::pair<float, std::pair<float, float>>& a,
+       const std::pair<float, std::pair<float, float>>& b) {
+            return a.first < b.first;
+       });
 
-	// 保留 top-10 elements
-	if(num_objs >= 10) {
-		dangerous_objs.resize(10);
-		num_objs = dangerous_objs.size();
-	}
-		
-	for(int i = 0; i < num_objs; i++){
-		tempArray[i * 3 + 0] = dangerous_objs[i].second.first;
-		tempArray[i * 3 + 1] = dangerous_objs[i].second.second;
-		tempArray[i * 3 + 2] = 2.0f;
-	}
+    // 保留 top-10 elements
+    if(num_objs >= 10) {
+        dangerous_objs.resize(10);
+        num_objs = dangerous_objs.size();
+    }
 
-	// 設定光照數量(int)和光源位置(float array)至 shader 的 uniform 變數
-	shader_dict["ego"]->Uniform1i("numLights", num_objs);
-	shader_dict["ego"]->Uniform3fv_arr("lightPositions", tempArray, num_objs);
-	
-	shader_dict["ego"]->draw_model(model_dict["ego_car"], ego_car_pos);
-	
-	// 清除工作
-	memset(tempArray, 0, sizeof(tempArray));
-	dangerous_objs.clear();
+    for(int i = 0; i < num_objs; i++){
+        tempArray[i * 3 + 0] = dangerous_objs[i].second.first;
+        tempArray[i * 3 + 1] = dangerous_objs[i].second.second;
+        tempArray[i * 3 + 2] = 2.0f;
+    }
 
-	// 切換回 base shader
-	switch_to_shader(shader_dict["base"]);
-	shader_dict["base"]->set_proj_view_mat(projection, view);
-	
+    // 設定光照數量(int)和光源位置(float array)至 shader 的 uniform 變數
+    shader_dict["ego"]->Uniform1i("numLights", num_objs);
+    shader_dict["ego"]->Uniform3fv_arr("lightPositions", tempArray, num_objs);
+
+    shader_dict["ego"]->draw_model(model_dict["ego_car"], ego_car_pos);
+
+    // 清除工作
+    memset(tempArray, 0, sizeof(tempArray));
+    dangerous_objs.clear();
+
+    // 切換回 base shader
+    switch_to_shader(shader_dict["base"]);
+    shader_dict["base"]->set_proj_view_mat(projection, view);
+
 }
 
 void MyOpenGLWidget::draw_ego_car() {
-	TransformComponent transform;
-	transform.position = {5.0f, 0.0f, 0.0f};
-	transform.eulers = {0.0f, 0.0f, 0.0f};
-	// renderSystem->draw_model(model_dict["ego_car"], transform);
-	renderSystem->draw_model_ins_mat(model_dict["ego_car"], transform);
+    TransformComponent transform;
+    transform.position = {5.0f, 0.0f, 0.0f};
+    transform.eulers = {0.0f, 0.0f, 0.0f};
+    // renderSystem->draw_model(model_dict["ego_car"], transform);
+    renderSystem->draw_model_ins_mat(model_dict["ego_car"], transform);
 }
 
 void MyOpenGLWidget::show_ego_car() {

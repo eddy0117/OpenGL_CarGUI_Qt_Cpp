@@ -1,15 +1,6 @@
 #pragma once
 #include "../config.h"
-// #include "../src/controller/app.h"
-// #include "mainwindow.h"
 
-
-
-
-
-// using json = nlohmann::json;
-
-// void recv_data(std::queue<json> &queue_json);
 
 class DataReceiveThread : public QThread
 {

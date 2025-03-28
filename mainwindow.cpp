@@ -44,8 +44,6 @@ void MainWindow::updateUI() {
 }
 
 void MainWindow::setupUI() {
-    // std::thread socket_thread(&MainWindow::recv_data, this);
-    // socket_thread.detach(); // 讓線程獨立運行，不會受到 setupUI 的生命週期影響
     setupTimer();
     ui->speedometer->setText("0");
 
