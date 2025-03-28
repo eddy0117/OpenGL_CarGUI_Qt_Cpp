@@ -44,6 +44,7 @@
 
 // Qt Utils
 #include <QTimer>
+#include <QThread>
 #include <QEventLoop>
 
 // Debug

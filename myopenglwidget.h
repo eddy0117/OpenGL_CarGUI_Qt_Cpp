@@ -1,5 +1,5 @@
-#ifndef MYOPENGLWIDGET_H
-#define MYOPENGLWIDGET_H
+// #ifndef MYOPENGLWIDGET_H
+// #define MYOPENGLWIDGET_H
 #include "src/config.h"
 
 #include <QMouseEvent>
@@ -143,4 +143,4 @@ signals:
 
 };
 
-#endif // MYOPENGLWIDGET_H
+// #endif // MYOPENGLWIDGET_H

@@ -13,7 +13,7 @@
 
 #include "src/view/shader.h"
 
-// #include "src/threads/socket_thread.h"
+#include "src/threads/socket_thread.h"
 
 #include <QMainWindow>
 #include <qopenglfunctions.h>
@@ -79,6 +79,7 @@ private:
     std::unordered_map<int, std::chrono::high_resolution_clock::time_point> g_notify_times;
 
     // Threads
+    QThread* thread_container = nullptr;
     void recv_data();
 
     // Qt methods

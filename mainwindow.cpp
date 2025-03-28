@@ -6,24 +6,28 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    // openGLWidget = new MyOpenGLWidget(parent);
-    // setCentralWidget(ui->openGLWidget);
+    // 直接建立 DataReceiveThread 並啟動，不再建立額外的 QThread
+    DataReceiveThread* data_receive_worker = new DataReceiveThread();
+    data_receive_worker->start();
+    // 若需要使用 signal-slot 進行資料傳遞可取消註解：
+    connect(data_receive_worker, &DataReceiveThread::cur_frame_data_signal,
+            this, &MainWindow::process_recv_data);
 
-    // QSurfaceFormat format;
-    // format.setRenderableType(QSurfaceFormat::OpenGLES); // 指定 OpenGL ES
-    // format.setVersion(3, 0);  // 使用 OpenGL ES 3.0
-    // format.setProfile(QSurfaceFormat::CoreProfile);
-    // QSurfaceFormat::setDefaultFormat(format);
+
+
     std::cout<<"MainWindow init"<<std::endl;
 
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
 
 
 void MainWindow::updateUI() {
     // ui->openGLWidget->update();
-    if (!queue_json.empty()) {
-        process_recv_data(queue_json.front());
-        queue_json.pop();
+    if (!cur_frame_data.empty()) {
 
         std::vector<uchar> img_data = base64Decode(cur_frame_data["img"].toObject()["CAM_FRONT"].toString().toStdString());
         cv::Mat img = cv::imdecode(img_data, cv::IMREAD_COLOR);
@@ -40,8 +44,8 @@ void MainWindow::updateUI() {
 }
 
 void MainWindow::setupUI() {
-    std::thread socket_thread(&MainWindow::recv_data, this);
-    socket_thread.detach(); // 讓線程獨立運行，不會受到 setupUI 的生命週期影響
+    // std::thread socket_thread(&MainWindow::recv_data, this);
+    // socket_thread.detach(); // 讓線程獨立運行，不會受到 setupUI 的生命週期影響
     setupTimer();
     ui->speedometer->setText("0");
 
@@ -84,7 +88,3 @@ QPixmap MainWindow::convert_cv_qt(cv::Mat img){
     return QPixmap::fromImage(qt_img);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
