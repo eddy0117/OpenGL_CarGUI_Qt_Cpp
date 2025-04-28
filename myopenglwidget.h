@@ -10,7 +10,7 @@
 #include "src/systems/camera_system.h"
 #include "src/systems/render_system.h"
 #include "src/factories/factory.h"
-#include "mainwindow.h"
+#include "src/mainwindow.h"
 
 
 

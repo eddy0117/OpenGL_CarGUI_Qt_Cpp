@@ -8,9 +8,9 @@ MyOpenGLWidget::~MyOpenGLWidget() {
     delete cameraSystem;
     delete renderSystem;
     delete cameraComponent;
-    std::cout << "max consume time: " << *std::max_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
-    std::cout << "min consume time: " << *std::min_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
-    std::cout << "Average consume time: " << std::accumulate(consume_time_list.begin(), consume_time_list.end(), 0.0f) / consume_time_list.size() << "ms" << std::endl;
+    // std::cout << "max consume time: " << *std::max_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
+    // std::cout << "min consume time: " << *std::min_element(consume_time_list.begin(), consume_time_list.end()) << "ms" << std::endl;
+    // std::cout << "Average consume time: " << std::accumulate(consume_time_list.begin(), consume_time_list.end(), 0.0f) / consume_time_list.size() << "ms" << std::endl;
 }
 
 void debug_func(){
@@ -65,14 +65,14 @@ void MyOpenGLWidget::init_my_setup()
 
     CameraComponent* camera = new CameraComponent();
     cameraComponent = camera;
-
     std::cout << "init shader" << std::endl;
+    std::cout << "current pwd" << std::filesystem::current_path() << std::endl;
     Shader* base_shader = new Shader(
-        "../../src/shaders/vertex_base.vert",
-        "../../src/shaders/fragment_base.frag");
+        "src/shaders/vertex_base.vert",
+        "src/shaders/fragment_base.frag");
     Shader* ego_car_shader = new Shader(
-        "../../src/shaders/vertex_ego.vert",
-        "../../src/shaders/fragment_ego_uni.frag");
+        "src/shaders/vertex_ego.vert",
+        "src/shaders/fragment_ego_uni.frag");
 
     // 設定接下來繪製時要用的 shader 程式
     shader_dict.insert_or_assign("base", base_shader);
@@ -104,13 +104,16 @@ void MyOpenGLWidget::paintGL()
 
 
     if (!cur_frame_data.isEmpty()) {
-        auto start = std::chrono::high_resolution_clock::now();
+        // 計時用
+        // auto start = std::chrono::high_resolution_clock::now();
         draw_objs();
         draw_lines();
         draw_occ_dots();
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<float, std::milli> duration = end - start;
-        consume_time_list.push_back(duration.count());
+
+        // 計時用
+        // auto end = std::chrono::high_resolution_clock::now();
+        // std::chrono::duration<float, std::milli> duration = end - start;
+        // consume_time_list.push_back(duration.count());
     }
 
     update();

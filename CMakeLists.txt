@@ -25,9 +25,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        src/mainwindow.cpp
+        src/mainwindow.h
+        src/mainwindow.ui
 
         # header files
 
@@ -54,7 +54,7 @@ set(PROJECT_SOURCES
         src/threads/socket_thread.cpp
         src/view/shader.cpp
         # src/controller/app.cpp
-        drawing.cpp
+        src/drawing.cpp
 
         # shader
         src/shaders/vertex_base.vert
