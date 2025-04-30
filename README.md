@@ -27,7 +27,6 @@ make
 ```
 Start up the program
 ```
-./build/SmartDash
-boardSystem
+./build/SmartDashboardSystem
 ```
 For generating dummy data to this program, please clone [this](https://github.com/eddy0117/OpenGL_CarGUI_Qt_Cpp) repository and refer the [tutorial](https://github.com/eddy0117/OpenGL_CarGUI_Cpp/blob/main/docs/datasender.md).
