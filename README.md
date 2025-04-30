@@ -1,8 +1,9 @@
 # OpenGL CarGUI C++ with Qt
 ![alt text](img/figure/demo.gif)
-## OS requirement
+## Deployable on these OS
 - Ubuntu 22.04
 - Raspberry Pi OS
+- l4t Ubuntu 22.04 (from Jetpack 6.2)
 ## Install requirements
 ### Qt 
 ```
