@@ -53,7 +53,7 @@ void MyOpenGLWidget::draw_lines() {
         for (const QJsonValue &xVal : xArray) x_list.push_back(xVal.toDouble());
         for (const QJsonValue &yVal : yArray) y_list.push_back(yVal.toDouble());
 
-        QString dot_class = QString::number(dot["cls"].toInt());
+        std::string dot_class = QString::number(dot["cls"].toInt()).toStdString();
 
         // transform 裡最多兩個輸入範圍
         std::vector<TransformComponent> positions(x_list.size());
@@ -72,7 +72,23 @@ void MyOpenGLWidget::draw_lines() {
             });
 
         positions = line_interpolation(positions, 15);
-        renderSystem->draw_line_dots(model_dict[dot_class.toStdString()], positions);
+        
+        // 類別為 2 (roadline) 時，繪製虛線
+        if (dot_class == "2") {
+            std::vector<TransformComponent>new_positions(positions.size());
+            bool is_dash = false;
+            for (int i=0; i<positions.size(); i++) {
+                if (i % 15 == 0) {
+                    is_dash = !is_dash; // 每5個點切換一次虛線狀態
+                }
+                if (is_dash == false) {
+                    new_positions.push_back(positions[i]);
+                }
+            }
+            positions = new_positions;
+        }
+
+        renderSystem->draw_line_dots(model_dict[dot_class], positions);
     }
 }
 
