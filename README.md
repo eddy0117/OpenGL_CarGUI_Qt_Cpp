@@ -13,10 +13,6 @@ sudo apt install qt6-base-dev qt6-tools-dev cmake g++ ninja-build
 ```
 sudo apt install libopencv-dev
 ```
-### Ubuntu 25.04 needs to install additional packages
-```
-sudo apt install libglfw3-dev libepoxy-dev libjsoncpp-dev libgtk-3-dev libx11-dev
-```
 
 ## Usage
 Use cmake to generate Makefile
